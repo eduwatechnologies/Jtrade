@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, List, BarChart3, LogOut, Target } from "lucide-react";
+import {
+  LayoutDashboard,
+  List,
+  BarChart3,
+  LogOut,
+  Target,
+  Plug,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -42,6 +49,11 @@ const Sidebar = ({ className, onLinkClick }: SidebarProps) => {
       href: "/dashboard/analytics",
       label: "Analytics",
       icon: BarChart3,
+    },
+    {
+      href: "/dashboard/mt5-connect",
+      label: "Connect MT5",
+      icon: Plug,
     },
   ];
 

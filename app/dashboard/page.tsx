@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import { StatCard } from "@/components/StatCard";
 import EquityChart from "@/components/charts/EquityChart";
-import MonthlyPLChart from "@/components/charts/MonthlyPLChart";
+import DailyPLCalendar from "@/components/DailyPLCalendar";
 import TradeTable, { Trade } from "@/components/TradeTable";
 import {
   DollarSign,
@@ -57,7 +57,7 @@ export default function DashboardPage() {
       </div>
 
       {stats && (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
           <StatCard
             title="Total P/L"
             value={`$${stats.totalProfitLoss.toFixed(2)}`}
@@ -91,10 +91,10 @@ export default function DashboardPage() {
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <div className="col-span-4">
-            <EquityChart data={stats?.equityCurve || []} />
+          <EquityChart data={stats?.equityCurve || []} />
         </div>
         <div className="col-span-3">
-            <MonthlyPLChart data={stats?.monthlyPL || []} />
+          <DailyPLCalendar trades={trades} />
         </div>
       </div>
 

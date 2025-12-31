@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* @custom-variant dark (&:is(.dark *)); */
 
 @theme inline {
   --color-background: var(--background);
@@ -47,85 +47,90 @@
 }
 
 :root {
-  /* Modern Slate/Midnight Dark Theme */
+  /* Light Green / White-Brown Theme */
   --radius: 0.5rem;
 
-  /* Deep Blue/Slate Background - Professional & Calm */
-  --background: oklch(0.11 0.02 255);
-  --foreground: oklch(0.985 0.01 255);
+  /* Backgrounds */
+  --background: #fffdf5; /* Light yellow-white */
+  --foreground: #1f2937; /* Text primary */
 
-  /* Slightly lighter cards */
-  --card: oklch(0.15 0.03 255);
-  --card-foreground: oklch(0.985 0.01 255);
+  /* Cards / Surfaces */
+  --card: #fffbea;
+  --card-foreground: #1f2937;
 
-  --popover: oklch(0.15 0.03 255);
-  --popover-foreground: oklch(0.985 0.01 255);
+  --popover: #fffbea;
+  --popover-foreground: #1f2937;
 
-  /* Vibrant Primary - Electric Indigo/Blue */
-  --primary: oklch(0.65 0.22 265);
-  --primary-foreground: oklch(0.985 0 0);
+  /* Primary (Light Green) */
+  --primary: #6fcf97;
+  --primary-foreground: #1f2937; /* Dark text for contrast */
 
-  /* Muted elements */
-  --secondary: oklch(0.22 0.04 255);
-  --secondary-foreground: oklch(0.985 0.01 255);
+  /* Secondary / Muted */
+  --secondary: #eaf7ef; /* Primary soft */
+  --secondary-foreground: #1f2937;
 
-  --muted: oklch(0.22 0.04 255);
-  --muted-foreground: oklch(0.7 0.04 255);
+  --muted: #f5f7eb; /* Muted background */
+  --muted-foreground: #6b7280; /* Text muted */
 
-  --accent: oklch(0.25 0.05 255);
-  --accent-foreground: oklch(0.985 0.01 255);
+  --accent: #eaf7ef; /* Primary soft */
+  --accent-foreground: #1f2937;
 
-  /* Status Colors */
-  --destructive: oklch(0.6 0.2 25); /* Vivid Red/Rose */
+  /* Status */
+  --destructive: oklch(0.6 0.2 25); /* Keeping standard red for now */
+  --destructive-foreground: #fffdf5;
 
-  --border: oklch(0.22 0.04 255);
-  --input: oklch(0.22 0.04 255);
-  --ring: oklch(0.65 0.22 265);
+  /* Borders / Input */
+  --border: #f1eedc; /* Soft border */
+  --input: #f1eedc;
+  --ring: #57b883; /* Primary hover */
 
-  /* Chart Colors */
-  --chart-1: oklch(0.7 0.15 150); /* Emerald Green (Win) */
-  --chart-2: oklch(0.65 0.2 25); /* Rose Red (Loss) */
-  --chart-3: oklch(0.6 0.18 265); /* Indigo */
-  --chart-4: oklch(0.75 0.15 85); /* Amber */
-  --chart-5: oklch(0.65 0.15 200); /* Cyan/Blue */
+  /* Chart Colors (Adjusted slightly for light theme if needed, but keeping standard for now) */
+  --chart-1: oklch(0.6 0.15 150); /* Emerald */
+  --chart-2: oklch(0.6 0.2 25); /* Rose */
+  --chart-3: oklch(0.5 0.18 265); /* Indigo */
+  --chart-4: oklch(0.7 0.15 85); /* Amber */
+  --chart-5: oklch(0.6 0.15 200); /* Cyan */
 
-  /* Sidebar - Matches background but distinct */
-  --sidebar: oklch(0.1 0.02 255);
-  --sidebar-foreground: oklch(0.985 0.01 255);
-  --sidebar-primary: oklch(0.65 0.22 265);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.18 0.03 255);
-  --sidebar-accent-foreground: oklch(0.985 0.01 255);
-  --sidebar-border: oklch(0.2 0.03 255);
-  --sidebar-ring: oklch(0.65 0.22 265);
+  /* Sidebar */
+  --sidebar: #f5f7eb; /* Muted background */
+  --sidebar-foreground: #1f2937;
+  --sidebar-primary: #6fcf97;
+  --sidebar-primary-foreground: #1f2937;
+  --sidebar-accent: #eaf7ef;
+  --sidebar-accent-foreground: #1f2937;
+  --sidebar-border: #f1eedc;
+  --sidebar-ring: #57b883;
 }
 
 .dark {
-  /* Same as root because we are enforcing dark mode */
-  --background: oklch(0.11 0.02 255);
-  --foreground: oklch(0.985 0.01 255);
-  --card: oklch(0.15 0.03 255);
-  --card-foreground: oklch(0.985 0.01 255);
-  --popover: oklch(0.15 0.03 255);
-  --popover-foreground: oklch(0.985 0.01 255);
-  --primary: oklch(0.65 0.22 265);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.22 0.04 255);
-  --secondary-foreground: oklch(0.985 0.01 255);
-  --muted: oklch(0.22 0.04 255);
-  --muted-foreground: oklch(0.7 0.04 255);
-  --accent: oklch(0.25 0.05 255);
-  --accent-foreground: oklch(0.985 0.01 255);
+  /* Same as root because we are enforcing this light theme as the "new look" */
+  /* If the user specifically toggles dark mode, we can add a dark palette later, 
+     but for now, we map everything to the requested colors to ensure consistency. */
+  --background: #fffdf5;
+  --foreground: #1f2937;
+  --card: #fffbea;
+  --card-foreground: #1f2937;
+  --popover: #fffbea;
+  --popover-foreground: #1f2937;
+  --primary: #6fcf97;
+  --primary-foreground: #1f2937;
+  --secondary: #eaf7ef;
+  --secondary-foreground: #1f2937;
+  --muted: #f5f7eb;
+  --muted-foreground: #6b7280;
+  --accent: #eaf7ef;
+  --accent-foreground: #1f2937;
   --destructive: oklch(0.6 0.2 25);
-  --border: oklch(0.22 0.04 255);
-  --input: oklch(0.22 0.04 255);
-  --ring: oklch(0.65 0.22 265);
-  --sidebar: oklch(0.1 0.02 255);
-  --sidebar-foreground: oklch(0.985 0.01 255);
-  --sidebar-primary: oklch(0.65 0.22 265);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.18 0.03 255);
-  --sidebar-accent-foreground: oklch(0.985 0.01 255);
-  --sidebar-border: oklch(0.2 0.03 255);
-  --sidebar-ring: oklch(0.65 0.22 265);
+  --destructive-foreground: #fffdf5;
+  --border: #f1eedc;
+  --input: #f1eedc;
+  --ring: #57b883;
+  --sidebar: #f5f7eb;
+  --sidebar-foreground: #1f2937;
+  --sidebar-primary: #6fcf97;
+  --sidebar-primary-foreground: #1f2937;
+  --sidebar-accent: #eaf7ef;
+  --sidebar-accent-foreground: #1f2937;
+  --sidebar-border: #f1eedc;
+  --sidebar-ring: #57b883;
 }
