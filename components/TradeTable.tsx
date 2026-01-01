@@ -31,6 +31,12 @@ export interface Trade {
   takeProfit?: number;
   notes?: string;
   images?: string[];
+  ruleEvaluations?: {
+    rule: string;
+    ruleName: string;
+    passed: boolean;
+    actualValue: any;
+  }[];
 }
 
 interface TradeTableProps {

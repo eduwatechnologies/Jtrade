@@ -53,8 +53,13 @@ export default function ImportTradesModal({
 
         if (header.includes("asset") || header.includes("symbol"))
           trade.asset = value;
-        if (header.includes("type") || header.includes("direction"))
-          trade.tradeType = value.toLowerCase();
+        if (header.includes("type") || header.includes("direction")) {
+          const type = value.toLowerCase();
+          if (type === "long" || type === "buy") trade.tradeType = "buy";
+          else if (type === "short" || type === "sell")
+            trade.tradeType = "sell";
+          else trade.tradeType = type;
+        }
         if (header.includes("entry") || header.includes("open"))
           trade.entryPrice = parseFloat(value);
         if (header.includes("exit") || header.includes("close"))
@@ -78,13 +83,77 @@ export default function ImportTradesModal({
           trade.notes = value;
         if (header.includes("market")) trade.market = value.toLowerCase();
         if (header.includes("strategy")) trade.strategy = value;
+        if (
+          header.includes("profit") ||
+          header.includes("pl") ||
+          header.includes("p/l")
+        )
+          trade.profitLoss = parseFloat(value);
       });
+
+      // Calculate missing fields
+      if (
+        trade.entryPrice &&
+        trade.exitPrice &&
+        trade.positionSize &&
+        trade.tradeType
+      ) {
+        if (trade.profitLoss === undefined) {
+          const multiplier = trade.tradeType === "buy" ? 1 : -1;
+
+          let contractSize = 1;
+          const asset = trade.asset
+            ? trade.asset.toUpperCase().replace(/[^A-Z0-9]/g, "")
+            : "";
+          const market = trade.market ? trade.market.toLowerCase() : "";
+
+          if (market === "forex") contractSize = 100000;
+          else if (asset.includes("XAU") || asset.includes("GOLD"))
+            contractSize = 100;
+          else if (asset.includes("XAG") || asset.includes("SILVER"))
+            contractSize = 5000;
+          else {
+            const currencies = [
+              "USD",
+              "EUR",
+              "GBP",
+              "JPY",
+              "AUD",
+              "CAD",
+              "CHF",
+              "NZD",
+            ];
+            if (asset.length === 6) {
+              const base = asset.substring(0, 3);
+              const quote = asset.substring(3, 6);
+              if (currencies.includes(base) && currencies.includes(quote)) {
+                contractSize = 100000;
+              }
+            }
+          }
+
+          trade.profitLoss =
+            (trade.exitPrice - trade.entryPrice) *
+            trade.positionSize *
+            multiplier *
+            contractSize;
+          // Note: This is a rough estimation, ideally user provides P/L
+        }
+      }
+
+      if (trade.profitLoss !== undefined) {
+        if (trade.profitLoss > 0) trade.result = "win";
+        else if (trade.profitLoss < 0) trade.result = "loss";
+        else trade.result = "break-even";
+      }
 
       if (
         trade.asset &&
         trade.entryPrice &&
         trade.exitPrice &&
-        trade.positionSize
+        trade.positionSize &&
+        trade.profitLoss !== undefined &&
+        trade.result
       ) {
         trades.push(trade);
       }

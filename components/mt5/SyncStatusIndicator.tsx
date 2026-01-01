@@ -104,7 +104,9 @@ export default function SyncStatusIndicator() {
           <span className="text-sm text-muted-foreground">Last Sync</span>
           <span className="text-sm font-medium">
             {status.lastSyncAt
-              ? formatDistanceToNow(new Date(status.lastSyncAt), { addSuffix: true })
+              ? formatDistanceToNow(new Date(status.lastSyncAt), {
+                  addSuffix: true,
+                })
               : "Never"}
           </span>
         </div>

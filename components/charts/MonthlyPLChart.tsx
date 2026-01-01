@@ -56,7 +56,9 @@ export default function MonthlyPLChart({ data }: MonthlyPLChartProps) {
                 {data.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={entry.value >= 0 ? "var(--chart-1)" : "var(--chart-2)"}
+                    fill={
+                      entry.value >= 0 ? "var(--chart-1)" : "var(--chart-2)"
+                    }
                   />
                 ))}
               </Bar>

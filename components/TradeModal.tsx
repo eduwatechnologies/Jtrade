@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { X, Upload } from "lucide-react";
+import { X, Upload, ScanLine } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -59,8 +59,10 @@ export default function TradeModal({
   const [strategies, setStrategies] = useState<Strategy[]>([]);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [extracting, setExtracting] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [error, setError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [riskMetrics, setRiskMetrics] = useState({ risk: 0, reward: 0, rr: 0 });
 
   // Fetch strategies
@@ -149,11 +151,57 @@ export default function TradeModal({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleExtractFromImage = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+
+    const file = e.target.files[0];
+    setExtracting(true);
+    setError("");
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const { data } = await api.post("/trades/extract", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const extracted = data.data;
+      setFormData((prev) => ({
+        ...prev,
+        asset: extracted.asset || prev.asset,
+        tradeType: extracted.tradeType || prev.tradeType,
+        entryPrice: extracted.entryPrice || prev.entryPrice,
+        exitPrice: extracted.exitPrice || prev.exitPrice,
+        stopLoss: extracted.stopLoss || prev.stopLoss,
+        takeProfit: extracted.takeProfit || prev.takeProfit,
+      }));
+
+      // Also add the image to the list of selected files to upload
+      if (selectedFiles.length + 1 <= 3) {
+        setSelectedFiles((prev) => [...prev, file]);
+      }
+
+      alert("Trade details extracted! Please verify the data.");
+    } catch (err) {
+      console.error("Extraction failed", err);
+      setError("Failed to extract trade details from image.");
+    } finally {
+      setExtracting(false);
+      // Reset input
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
-      if (files.length + formData.images.length + selectedFiles.length > 4) {
-        alert("You can only upload a maximum of 4 images.");
+      if (files.length + formData.images.length + selectedFiles.length > 3) {
+        alert("You can only upload a maximum of 3 images.");
         return;
       }
       setSelectedFiles((prev) => [...prev, ...files]);
@@ -229,6 +277,14 @@ export default function TradeModal({
     }
   };
 
+  const getImageUrl = (path: string) => {
+    if (path.startsWith("http")) return path;
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+    const rootUrl = apiUrl.replace(/\/api\/?$/, "");
+    return `${rootUrl}${path}`;
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
@@ -236,9 +292,51 @@ export default function TradeModal({
           <DialogTitle>
             {tradeToEdit ? "Edit Trade" : "Add New Trade"}
           </DialogTitle>
-          <DialogDescription>Enter your trade details below.</DialogDescription>
+          <DialogDescription>
+            {tradeToEdit
+              ? "Make changes to your trade here."
+              : "Enter the details of your trade below."}
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="grid gap-4 py-4">
+          {!tradeToEdit && (
+            <div className="mb-4 p-4 border rounded-lg bg-muted/30">
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <h4 className="text-sm font-medium">
+                    Auto-fill from Screenshot
+                  </h4>
+                  <p className="text-xs text-muted-foreground">
+                    Upload a trade screenshot to automatically extract details.
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={extracting}
+                >
+                  {extracting ? (
+                    "Processing..."
+                  ) : (
+                    <>
+                      <ScanLine className="mr-2 h-4 w-4" />
+                      Upload Image
+                    </>
+                  )}
+                </Button>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleExtractFromImage}
+                />
+              </div>
+            </div>
+          )}
+
           {error && (
             <div className="p-3 text-sm text-red-500 bg-red-100/10 border border-red-500/20 rounded-md">
               {error}
@@ -425,7 +523,7 @@ export default function TradeModal({
                   className="relative w-20 h-20 border rounded-md overflow-hidden"
                 >
                   <img
-                    src={`http://localhost:5000${img}`}
+                    src={getImageUrl(img)}
                     alt={`Existing ${index}`}
                     className="object-cover w-full h-full"
                   />

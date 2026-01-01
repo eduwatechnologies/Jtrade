@@ -9,6 +9,7 @@ import {
   LogOut,
   Target,
   Plug,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -46,6 +47,11 @@ const Sidebar = ({ className, onLinkClick }: SidebarProps) => {
       icon: Target,
     },
     {
+      href: "/dashboard/rules",
+      label: "Trading Rules",
+      icon: ShieldCheck,
+    },
+    {
       href: "/dashboard/analytics",
       label: "Analytics",
       icon: BarChart3,
@@ -65,7 +71,7 @@ const Sidebar = ({ className, onLinkClick }: SidebarProps) => {
       )}
     >
       <div className="p-6 border-b border-border">
-        <h1 className="text-2xl font-bold text-primary">JTrade</h1>
+        <h1 className="text-2xl font-bold text-primary">OurTrade</h1>
       </div>
       <nav className="flex-1 p-4 space-y-2">
         {links.map((link) => {

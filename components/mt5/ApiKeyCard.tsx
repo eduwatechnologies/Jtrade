@@ -59,12 +59,14 @@ export default function ApiKeyCard() {
             {apiKey ? (
               <div className="flex items-center gap-2">
                 <code className="px-2 py-1 rounded bg-muted">{apiKey}</code>
-                <Button variant="secondary" onClick={copy}>{copyLabel}</Button>
+                <Button variant="secondary" onClick={copy}>
+                  {copyLabel}
+                </Button>
               </div>
             ) : hasKey ? (
               <div className="text-sm text-muted-foreground">
-                An API key exists. For security reasons it cannot be displayed again.
-                Click regenerate to get a new key. Created:{" "}
+                An API key exists. For security reasons it cannot be displayed
+                again. Click regenerate to get a new key. Created:{" "}
                 {createdAt ? new Date(createdAt).toLocaleString() : "Unknown"}
               </div>
             ) : (
@@ -78,7 +80,8 @@ export default function ApiKeyCard() {
               </Button>
             </div>
             <p className="text-xs text-muted-foreground">
-              Keep this key private. The EA uses it to authenticate. It is shown only once after regeneration.
+              Keep this key private. The EA uses it to authenticate. It is shown
+              only once after regeneration.
             </p>
           </>
         )}
