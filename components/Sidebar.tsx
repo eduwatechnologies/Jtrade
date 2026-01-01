@@ -14,6 +14,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { Logo } from "@/components/Logo";
 
 interface SidebarProps {
   className?: string;
@@ -66,12 +67,14 @@ const Sidebar = ({ className, onLinkClick }: SidebarProps) => {
   return (
     <div
       className={cn(
-        "flex flex-col h-full w-64 bg-card border-r border-border",
+        "flex flex-col h-full w-64 bg-sidebar border-r border-sidebar-border text-sidebar-foreground",
         className
       )}
     >
-      <div className="p-6 border-b border-border">
-        <h1 className="text-2xl font-bold text-primary">OurTrade</h1>
+      <div className="p-6 border-b border-sidebar-border/20">
+        <div className="flex items-center gap-2">
+          <Logo variant="sidebar" />
+        </div>
       </div>
       <nav className="flex-1 p-4 space-y-2">
         {links.map((link) => {
@@ -84,8 +87,8 @@ const Sidebar = ({ className, onLinkClick }: SidebarProps) => {
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
                 pathname === link.href
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                  : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               )}
             >
               <Icon className="h-5 w-5" />
@@ -94,10 +97,10 @@ const Sidebar = ({ className, onLinkClick }: SidebarProps) => {
           );
         })}
       </nav>
-      <div className="p-4 border-t border-border">
+      <div className="p-4 border-t border-sidebar-border/20">
         <Button
           variant="ghost"
-          className="w-full justify-start gap-3 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+          className="w-full justify-start gap-3 text-sidebar-foreground/70 hover:text-destructive-foreground hover:bg-destructive"
           onClick={handleLogout}
         >
           <LogOut className="h-5 w-5" />

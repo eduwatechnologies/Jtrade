@@ -47,90 +47,111 @@
 }
 
 :root {
-  /* Light Green / White-Brown Theme */
+  /* Prosperity & Earth Theme */
   --radius: 0.5rem;
 
   /* Backgrounds */
-  --background: #fffdf5; /* Light yellow-white */
-  --foreground: #1f2937; /* Text primary */
+  --background: #f9f8f4; /* Alabaster - Warm white */
+  --foreground: #1c1c1c; /* Charcoal - Soft black */
 
   /* Cards / Surfaces */
-  --card: #fffbea;
-  --card-foreground: #1f2937;
+  --card: #ffffff; /* Crisp White */
+  --card-foreground: #1c1c1c;
 
-  --popover: #fffbea;
-  --popover-foreground: #1f2937;
+  --popover: #ffffff;
+  --popover-foreground: #1c1c1c;
 
-  /* Primary (Light Green) */
-  --primary: #6fcf97;
-  --primary-foreground: #1f2937; /* Dark text for contrast */
+  /* Primary (Deep Forest) */
+  --primary: #1b4332; /* Deep Forest Green */
+  --primary-foreground: #ffffff; /* White text */
 
-  /* Secondary / Muted */
-  --secondary: #eaf7ef; /* Primary soft */
-  --secondary-foreground: #1f2937;
+  /* Secondary (Harvest Gold Tint) */
+  --secondary: #f0ead6; /* Eggshell/Light Gold tint */
+  --secondary-foreground: #1b4332;
 
-  --muted: #f5f7eb; /* Muted background */
-  --muted-foreground: #6b7280; /* Text muted */
+  /* Muted */
+  --muted: #eae8dc; /* Darker Alabaster */
+  --muted-foreground: #666666; /* Medium Grey */
 
-  --accent: #eaf7ef; /* Primary soft */
-  --accent-foreground: #1f2937;
+  /* Accent (Harvest Gold) */
+  --accent: #d4a373; /* Harvest Gold */
+  --accent-foreground: #ffffff;
 
   /* Status */
-  --destructive: oklch(0.6 0.2 25); /* Keeping standard red for now */
-  --destructive-foreground: #fffdf5;
+  --destructive: #d9381e; /* Brick Red - Earthy */
+  --destructive-foreground: #ffffff;
 
   /* Borders / Input */
-  --border: #f1eedc; /* Soft border */
-  --input: #f1eedc;
-  --ring: #57b883; /* Primary hover */
+  --border: #e0dcd0; /* Soft beige border */
+  --input: #e0dcd0;
+  --ring: #1b4332; /* Focus ring same as primary */
 
-  /* Chart Colors (Adjusted slightly for light theme if needed, but keeping standard for now) */
-  --chart-1: oklch(0.6 0.15 150); /* Emerald */
-  --chart-2: oklch(0.6 0.2 25); /* Rose */
-  --chart-3: oklch(0.5 0.18 265); /* Indigo */
-  --chart-4: oklch(0.7 0.15 85); /* Amber */
-  --chart-5: oklch(0.6 0.15 200); /* Cyan */
+  /* Chart Colors (Earthy Tones) */
+  --chart-1: #1b4332; /* Deep Forest */
+  --chart-2: #d4a373; /* Harvest Gold */
+  --chart-3: #d9381e; /* Brick Red */
+  --chart-4: #8fbc8f; /* Dark Sea Green */
+  --chart-5: #e6ccb2; /* Sand */
 
-  /* Sidebar */
-  --sidebar: #f5f7eb; /* Muted background */
-  --sidebar-foreground: #1f2937;
-  --sidebar-primary: #6fcf97;
-  --sidebar-primary-foreground: #1f2937;
-  --sidebar-accent: #eaf7ef;
-  --sidebar-accent-foreground: #1f2937;
-  --sidebar-border: #f1eedc;
-  --sidebar-ring: #57b883;
+  /* Sidebar (Dark Green Command Center) */
+  --sidebar: #1b4332; /* Deep Forest */
+  --sidebar-foreground: #f9f8f4; /* Alabaster text */
+  --sidebar-primary: #d4a373; /* Harvest Gold active */
+  --sidebar-primary-foreground: #1c1c1c; /* Dark text on gold */
+  --sidebar-accent: #2c5e45; /* Lighter Green hover */
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #2c5e45; /* Subtle border */
+  --sidebar-ring: #d4a373;
 }
 
 .dark {
-  /* Same as root because we are enforcing this light theme as the "new look" */
-  /* If the user specifically toggles dark mode, we can add a dark palette later, 
-     but for now, we map everything to the requested colors to ensure consistency. */
-  --background: #fffdf5;
-  --foreground: #1f2937;
-  --card: #fffbea;
-  --card-foreground: #1f2937;
-  --popover: #fffbea;
-  --popover-foreground: #1f2937;
-  --primary: #6fcf97;
-  --primary-foreground: #1f2937;
-  --secondary: #eaf7ef;
-  --secondary-foreground: #1f2937;
-  --muted: #f5f7eb;
-  --muted-foreground: #6b7280;
-  --accent: #eaf7ef;
-  --accent-foreground: #1f2937;
-  --destructive: oklch(0.6 0.2 25);
-  --destructive-foreground: #fffdf5;
-  --border: #f1eedc;
-  --input: #f1eedc;
-  --ring: #57b883;
-  --sidebar: #f5f7eb;
-  --sidebar-foreground: #1f2937;
-  --sidebar-primary: #6fcf97;
-  --sidebar-primary-foreground: #1f2937;
-  --sidebar-accent: #eaf7ef;
-  --sidebar-accent-foreground: #1f2937;
-  --sidebar-border: #f1eedc;
-  --sidebar-ring: #57b883;
+  /* Dark Mode - Deep Jungle */
+  --background: #0d1f17; /* Deep Jungle Black */
+  --foreground: #f9f8f4; /* Alabaster text */
+
+  --card: #142920; /* Slightly lighter jungle */
+  --card-foreground: #f9f8f4;
+
+  --popover: #142920;
+  --popover-foreground: #f9f8f4;
+
+  /* Primary (Gold becomes primary for visibility) */
+  --primary: #d4a373; /* Harvest Gold */
+  --primary-foreground: #0d1f17;
+
+  /* Secondary */
+  --secondary: #2c5e45; /* Medium Green */
+  --secondary-foreground: #f9f8f4;
+
+  /* Muted */
+  --muted: #1b4332; /* Deep Forest */
+  --muted-foreground: #a0a0a0;
+
+  /* Accent */
+  --accent: #2c5e45;
+  --accent-foreground: #f9f8f4;
+
+  --destructive: #aa2e1b; /* Darker Brick */
+  --destructive-foreground: #ffffff;
+
+  --border: #2c5e45;
+  --input: #2c5e45;
+  --ring: #d4a373;
+
+  /* Sidebar (Even Darker) */
+  --sidebar: #050f0b; /* Very Dark Jungle */
+  --sidebar-foreground: #f9f8f4;
+  --sidebar-primary: #d4a373;
+  --sidebar-primary-foreground: #0d1f17;
+  --sidebar-accent: #1b4332;
+  --sidebar-accent-foreground: #f9f8f4;
+  --sidebar-border: #1b4332;
+  --sidebar-ring: #d4a373;
+
+  /* Chart Colors (Adjusted for Dark Mode) */
+  --chart-1: #4ade80; /* Bright Green for contrast */
+  --chart-2: #d4a373; /* Gold */
+  --chart-3: #f87171; /* Light Red */
+  --chart-4: #a7f3d0; /* Mint */
+  --chart-5: #e6ccb2; /* Sand */
 }
